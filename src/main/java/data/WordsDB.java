@@ -20,7 +20,7 @@ public class WordsDB {
 	private static final Random random = new Random(new Date().getTime());
 	
 	public WordsDB()  {
-		try(BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("wordsEn.txt")))){
+		try(BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("words.txt")))){
 			String word = "";
 			while((word = reader.readLine()) != null)
 			{
