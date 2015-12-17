@@ -31,7 +31,10 @@ public class HibernateDemo {
             user.setName("kishore4");
             user.setPassword("garuda");
 
-            session.save(user);        
+            session.save(user);     
+			
+			User u = (User)session.get(User.class, 15);
+			u.setPassword("newPass");
         }
         finally {
             session.getTransaction().commit();
