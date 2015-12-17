@@ -7,6 +7,8 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3307/unscrambler?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">password</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
     <mapping resource="user.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
