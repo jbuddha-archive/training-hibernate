@@ -16,14 +16,14 @@ public class Main
 		String cont = "no";
 		Communicator communicator = Communicator.getInstance();
 		String name = communicator.read("Enter your name: ");
-		User user = new User(name);
+		User user = new User();
 		Game game = new FireyFingers(user, 10);
 		
 		do{
 			game.start(4);
 			cont = communicator.read("Do you want to continue(yes/no): ");
 		} while(cont.startsWith("y"));
-		user.store();
+		
 		communicator.close();
 		
 	}

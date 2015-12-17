@@ -1,74 +1,59 @@
 package data;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import util.Communicator;
 
 public class User {
+	private int id;
 	private String name;
+	private String password;
 	private double points;
-	Communicator communicator = Communicator.getInstance();
+
+	static Communicator communicator = Communicator.getInstance();
+
 	DecimalFormat df = new DecimalFormat("#.##");
+
+	public User()
+	{
+		
+	}
 	
-	private String fileName;
-	
-	public User(String name) {
-		super();
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
 		this.name = name;
-		fileName = name+"-user-points.txt";
-		
-		try {
-			try (FileReader reader = new FileReader(fileName)) {
-				Scanner scanner = new Scanner(reader);
-				this.points = scanner.nextDouble();
-			}
-		} catch (FileNotFoundException e) {
-			try {	
-				try (FileWriter writer = new FileWriter(fileName)) {
-					this.points = 0;
-				}
-			} catch (IOException ex) {
-				Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		} catch (IOException ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		
-		
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public double getPoints() {
+		return points;
+	}
+
+	public void setPoints(double points) {
+		this.points = points;
 	}
 	
 	public void adjustPoints(double points)
 	{
-		this.points += points;
-		communicator.displayMessage("Current Points of " + name + " are " + df.format(this.points));
-		try {
-			store();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public double getPoints()
-	{
-		return points;
-	}
-	
-	public String getName()
-	{
-		return name;
-	}
-	
-	public void store() throws IOException
-	{
-		try (FileWriter writer = new FileWriter(fileName)) {
-			writer.write(""+points);
-		}
+		setPoints(getPoints()+points);
+		communicator.displayMessage("Current Points of " + name + " are " + df.format(getPoints()));
 	}
 }
