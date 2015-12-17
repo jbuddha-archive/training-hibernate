@@ -6,6 +6,8 @@
 package sandbox;
 
 import data.User;
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -35,6 +37,14 @@ public class HibernateDemo {
 			
 			User u = (User)session.get(User.class, 15);
 			u.setPassword("newPass");
+			
+			Query query = session.createQuery("FROM hibernatedemo.User where name='kishore1'");
+			List list = query.list();
+			for(Object entity: list)
+			{
+				user = (User)entity;
+				user.setName("kishore01");
+			}
         }
         finally {
             session.getTransaction().commit();
