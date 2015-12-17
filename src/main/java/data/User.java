@@ -8,11 +8,12 @@ import util.Communicator;
 import util.OrmUtilities;
 
 public class User {
+
 	private int id;
 	private String name;
 	private String password;
-	private double points;
-	private double difficulty;
+
+	private GameData gameData = new GameData();
 
 	static Communicator communicator = Communicator.getInstance();
 
@@ -46,27 +47,19 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public double getPoints() {
-		return points;
+
+	public GameData getGameData() {
+		return gameData;
 	}
 
-	public void setPoints(double points) {
-		this.points = points;
-	}
-
-	public double getDifficulty() {
-		return difficulty;
-	}
-
-	public void setDifficulty(double difficulty) {
-		this.difficulty = difficulty;
+	public void setGameData(GameData gameData) {
+		this.gameData = gameData;
 	}
 	
 	public void adjustPoints(double points)
 	{
-		setPoints(getPoints()+points);
-		communicator.displayMessage("Current Points of " + name + " are " + df.format(getPoints()));
+		getGameData().setPoints(getGameData().getPoints()+points);
+		communicator.displayMessage("Current Points of " + name + " are " + df.format(getGameData().getPoints()));
 	}
 	
 	public static User findUser(String name)

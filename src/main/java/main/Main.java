@@ -27,7 +27,7 @@ public class Main
 				cont = communicator.read("Do you want to continue(yes/no): ");
 			} while(cont.startsWith("y"));
 			
-			communicator.displayMessage("Points for User are " + u.getPoints());
+			communicator.displayMessage("Points for User are " + u.getGameData().getPoints());
 		} finally{
 			communicator.close();
 			OrmUtilities.closeSession();

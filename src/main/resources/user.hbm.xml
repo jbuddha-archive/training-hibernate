@@ -7,7 +7,9 @@
 		</id>
 		<property name="name" column="name" />
 		<property name="password" column = "password"/>
-		<property name="points" column="points"/>
-		<property name="difficulty" column="difficulty"/>
+		<component name="gameData">
+			<property name="points" column="points"/>
+			<property name="difficulty" column="difficulty" />
+		</component>
 	</class>
 </hibernate-mapping>
