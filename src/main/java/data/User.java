@@ -12,6 +12,7 @@ public class User {
 	private String name;
 	private String password;
 	private double points;
+	private double difficulty;
 
 	static Communicator communicator = Communicator.getInstance();
 
@@ -52,6 +53,14 @@ public class User {
 
 	public void setPoints(double points) {
 		this.points = points;
+	}
+
+	public double getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(double difficulty) {
+		this.difficulty = difficulty;
 	}
 	
 	public void adjustPoints(double points)
