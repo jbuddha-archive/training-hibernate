@@ -1,8 +1,11 @@
 package data;
 
 import java.text.DecimalFormat;
+import java.util.List;
+import org.hibernate.Session;
 
 import util.Communicator;
+import util.OrmUtilities;
 
 public class User {
 	private int id;
@@ -55,5 +58,28 @@ public class User {
 	{
 		setPoints(getPoints()+points);
 		communicator.displayMessage("Current Points of " + name + " are " + df.format(getPoints()));
+	}
+	
+	public static User findUser(String name)
+	{
+		Session session = OrmUtilities.getSession();
+		List list = session.createQuery("FROM data.User where name='" + name + "'").list();
+		if(list.size() == 1)
+		{
+			User user = (User)list.get(0);
+			if(communicator.read("Enter your password: ").contentEquals(user.getPassword()))
+				return user;
+
+			communicator.displayMessage("Incorrect Password");
+			throw new RuntimeException("Incorrect Password");
+		}
+		else
+		{
+			User user = new User();
+			user.setName(name);
+			user.setPassword(communicator.read("Enter a password: "));
+			session.save(user);
+			return user;
+		}
 	}
 }
