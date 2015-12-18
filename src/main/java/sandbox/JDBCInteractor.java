@@ -50,9 +50,19 @@ public class JDBCInteractor {
         }
 		
 		result.moveToInsertRow();
-		result.updateString("name","anothernewuser2");
-		result.updateString("password", "anothernewpassword2");
+		result.updateString("name","anothernewuser");
+		result.updateString("password", "anothernewpassword");
 		result.insertRow();
+				
+		pStatement = conn.prepareStatement("SELECT id, name, password, points "
+                                                                   + "FROM USERS "
+                                                                   + "where name = ?",
+                                                                     ResultSet.TYPE_FORWARD_ONLY,
+                                                                     ResultSet.CONCUR_UPDATABLE);
+        pStatement.setString(1, "anothernewuser");
+		result = pStatement.executeQuery();
+		result.next();
+		result.deleteRow();
 		
         result.close();
 		conn.close();
