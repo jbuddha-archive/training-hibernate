@@ -33,18 +33,21 @@ public class JDBCInteractor {
 //		int insertResult = insertStatement.executeUpdate("INSERT INTO USERS (name, password) values ('somenewuser','somedummypassword');");
 //		System.out.println("Number of rows updated: " + insertResult);
 		
-		PreparedStatement pStatement1 = conn.prepareStatement("SELECT id, name, password, points "
+		PreparedStatement pStatement = conn.prepareStatement("SELECT id, name, password, points "
                                                                    + "FROM USERS "
-                                                                   + "where name = ?");
-        pStatement1.setString(1, "somenewuser");
+                                                                   + "where name = ?",
+                                                                     ResultSet.TYPE_FORWARD_ONLY,
+                                                                     ResultSet.CONCUR_UPDATABLE);
+        pStatement.setString(1, "somenewuser");
         
-        result = pStatement1.executeQuery();
+        result = pStatement.executeQuery();
 
         while(result.next())
         {
            System.out.println(result.getInt("id")+","+result.getString("name"));
+		   result.updateString("password", "newpassword");
+		   result.updateRow();
         }
-		
 		
         result.close();
 		conn.close();
