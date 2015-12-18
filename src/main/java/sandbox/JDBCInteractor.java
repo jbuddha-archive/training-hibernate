@@ -49,6 +49,11 @@ public class JDBCInteractor {
 		   result.updateRow();
         }
 		
+		result.moveToInsertRow();
+		result.updateString("name","anothernewuser2");
+		result.updateString("password", "anothernewpassword2");
+		result.insertRow();
+		
         result.close();
 		conn.close();
     }
