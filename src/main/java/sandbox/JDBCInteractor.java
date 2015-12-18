@@ -2,11 +2,7 @@ package sandbox;
 
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * A class for demonstrating JDBC
@@ -33,6 +29,10 @@ public class JDBCInteractor {
            System.out.println(result.getInt("id")+","+result.getString("name"));
         }
  
+		Statement insertStatement = conn.createStatement();
+		int insertResult = insertStatement.executeUpdate("INSERT INTO USERS (name, password) values ('somenewuser','somedummypassword');");
+		System.out.println("Number of rows updated: " + insertResult);
+		
         result.close();
 		conn.close();
     }
