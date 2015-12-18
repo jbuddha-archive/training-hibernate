@@ -11,5 +11,14 @@
 			<property name="points" column="points"/>
 			<property name="difficulty" column="difficulty" />
 		</component>
+		
+		<list name="history" table="user_history">
+			<key column="id"/>
+			<list-index column="position"/>
+			<composite-element class="data.UserHistory">
+				<property name="time" type="date" column="time" />
+				<property name="points" type="double" column="points" />
+			</composite-element>
+		</list>
 	</class>
 </hibernate-mapping>

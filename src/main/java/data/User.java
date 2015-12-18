@@ -1,6 +1,9 @@
 package data;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -14,6 +17,8 @@ public class User {
 	private String password;
 
 	private GameData gameData = new GameData();
+	
+	private List<UserHistory> history = new ArrayList<>();
 
 	static Communicator communicator = Communicator.getInstance();
 
@@ -55,9 +60,18 @@ public class User {
 	public void setGameData(GameData gameData) {
 		this.gameData = gameData;
 	}
+
+	public List<UserHistory> getHistory() {
+		return history;
+	}
+
+	public void setHistory(List<UserHistory> history) {
+		this.history = history;
+	}
 	
 	public void adjustPoints(double points)
 	{
+		history.add(new UserHistory(new Date(), points));
 		getGameData().setPoints(getGameData().getPoints()+points);
 		communicator.displayMessage("Current Points of " + name + " are " + df.format(getGameData().getPoints()));
 	}
